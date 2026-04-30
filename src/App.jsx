@@ -1,14 +1,21 @@
 // import { useState } from 'react'
 import './App.css'
+import Dashboard from "./pages/Dashboard";
+import Header from "./components/Header";
+import Rumah from "./pages/rumah"
+import { Routes, Route } from "react-router-dom";
 
 function App() {
-  // const [count, setCount] = useState(0)
-
   return (
-    <div className='text-6xl text-amber-300 p-7'>
-hahhhh
-    </div>
-  )
+    <>
+      <Header />
+
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/rumah" element={<Rumah />} />
+      </Routes>
+    </>
+  );
 }
 
 export default App
