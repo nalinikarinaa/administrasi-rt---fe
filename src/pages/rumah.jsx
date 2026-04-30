@@ -235,7 +235,7 @@ const handleCreate = () => {
     <div className="bg-blue-100 p-4 rounded-lg max-w-md w-full">
       
       <h2 className="text-lg font-semibold mb-2 text-center">
-        Edit Rumah
+        Tambah Rumah
       </h2>
 
       <div className="mt-2">
