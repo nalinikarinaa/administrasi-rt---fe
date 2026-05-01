@@ -5,6 +5,7 @@ import Header from "./components/Header";
 import Rumah from "./pages/rumah"
 import Penghuni from "./pages/penghuni"
 import Pembayaran from "./pages/pembayaran"
+import Pengeluaran from "./pages/pengeluaran"
 import { Routes, Route } from "react-router-dom";
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Route path="/rumah" element={<Rumah />} />
         <Route path="/penghuni" element={<Penghuni />} /> 
         <Route path="/pembayaran" element={<Pembayaran />} /> 
+        <Route path="/pengeluaran" element={<Pengeluaran />} />
       </Routes>
     </>
   );

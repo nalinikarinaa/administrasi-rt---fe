@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import API from "../services/api";
 import Swal from "sweetalert2";
 
-function Dashboard() {
+function Pembayaran() {
     console.log("DASHBOARD TERLOAD");
     const [data, setData] = useState([]);
     const [showModalTambah, setShowModalTambah] = useState(false);
@@ -395,4 +395,4 @@ function Dashboard() {
       );
     }
 
-    export default Dashboard;
+    export default Pembayaran;
