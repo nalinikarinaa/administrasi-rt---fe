@@ -2,9 +2,26 @@ import { useEffect, useState } from "react";
 import API from "../services/api";
 import ChartKeuangan from "../components/ChartKeuangan";
 
+  const namaBulan = [
+      "", 
+      "Januari",
+      "Februari",
+      "Maret",
+      "April",
+      "Mei",
+      "Juni",
+      "Juli",
+      "Agustus",
+      "September",
+      "Oktober",
+      "November",
+      "Desember"
+    ];
+
 function Dashboard() {
     console.log("DASHBOARD TERLOAD");
   const [data, setData] = useState([]);
+
 
 useEffect(() => {
   console.log("API HIT:", "/pengeluaran/total");
@@ -14,8 +31,9 @@ useEffect(() => {
       console.log(res.data);
 
       const fixedData = res.data.map(item => ({
-        bulan: item.bulan,
-        pemasukan: Number(item.pemasukan),     
+        bulan: Number(item.bulan),
+        namaBulan: namaBulan[Number(item.bulan)],   
+        pemasukan: Number(item.pemasukan), 
         pengeluaran: Number(item.pengeluaran), 
         saldo: Number(item.saldo),             
       }));
@@ -40,25 +58,25 @@ useEffect(() => {
         ) : (
         <ChartKeuangan data={data} />
         )}
-      <h1>hhhqqqqwuy</h1>
 
-      <table className="border w-full">
+      
+    <table className="mt-4 w-full border border-gray-300 border-collapse">
         <thead>
-          <tr className="bg-gray-500">
-            <th>Bulan</th>
-            <th>Pemasukan</th>
-            <th>Pengeluaran</th>
-            <th>Saldo</th>
+          <tr className="bg-gray-200">
+            <th className="p-3 border">Bulan</th>
+            <th className="p-3 border">Pemasukan</th>
+            <th className="p-3 border">Pengeluaran</th>
+            <th className="p-3 border">Saldo</th>
           </tr>
         </thead>
 
         <tbody>
           {data.map((item, index) => (
-            <tr key={index} className="text-center">
-              <td>{item.bulan}</td>
-              <td>{item.pemasukan}</td>
-              <td>{item.pengeluaran}</td>
-              <td>{item.saldo}</td>
+            <tr key={index} className="text-center hover:bg-gray-50">
+              <td className="p-3 border">{item.namaBulan}</td>
+              <td className="p-3 border">{item.pemasukan}</td>
+              <td className="p-3 border">{item.pengeluaran}</td>
+              <td className="p-3 border">{item.saldo}</td>
             </tr>
           ))}
         </tbody>

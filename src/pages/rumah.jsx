@@ -144,7 +144,9 @@ const handleCreate = () => {
     <tr className="bg-gray-200">
       <th className="p-3 border border-gray-300">No</th>
       <th className="p-3 border border-gray-300">Nomor Rumah</th>
-      <th className="p-3 border border-gray-300">Status</th>
+      <th className="p-3 border border-gray-300">Status Rumah</th> 
+      <th className="p-3 border border-gray-300">Nama penghuni</th>
+      <th className="p-3 border border-gray-300">Status Penghuni</th> 
       <th className="p-3 border border-gray-300">Aksi</th>
     </tr>
   </thead>
@@ -154,7 +156,12 @@ const handleCreate = () => {
       <tr key={item.id} className="text-center hover:bg-gray-50">
         <td className="p-3 border border-gray-300">{index + 1}</td>
         <td className="p-3 border border-gray-300">{item.nomor_rumah}</td>
-        <td className="p-3 border border-gray-300">{item.status}</td>
+        <td className="p-3 border border-gray-300">{item.status}</td> 
+        <td className="p-3 border border-gray-300">  {item.penghuni_relasi.length > 0
+                                                         ? item.penghuni_relasi[0].penghuni?.name: "-"}</td>
+        <td className="p-3 border border-gray-300">  {item.penghuni_relasi.length > 0
+                                                         ? item.penghuni_relasi[0].penghuni?.status: "-"}</td> 
+       
         <td className="p-3 border border-gray-300">
           <button
             onClick={() => openModal(item)}

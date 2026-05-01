@@ -2,17 +2,8 @@ import { useEffect, useState } from "react";
 import API from "../services/api";
 import Swal from "sweetalert2";
 
-function Pengeluaran() {
-    console.log("DASHBOARD TERLOAD");
-    const [data, setData] = useState([]);
-    const [showModalTambah, setShowModalTambah] = useState(false);
-    const [showModalDetail, setShowModalDetail] = useState(false);
-    const [detailData, setDetailData] = useState([]);
-    const [selectedData, setSelectedData] = useState(null);
-    const [selectedPeriode, setSelectedPeriode] = useState(null);
-    const [tahun, setTahun] = useState(new Date().getFullYear());
     const namaBulan = [
-      "", // biar index 1 = Januari
+      "", 
       "Januari",
       "Februari",
       "Maret",
@@ -26,6 +17,16 @@ function Pengeluaran() {
       "November",
       "Desember"
     ];
+function Pengeluaran() {
+    console.log("DASHBOARD TERLOAD");
+    const [data, setData] = useState([]);
+    const [showModalTambah, setShowModalTambah] = useState(false);
+    const [showModalDetail, setShowModalDetail] = useState(false);
+    const [detailData, setDetailData] = useState([]);
+    const [selectedData, setSelectedData] = useState(null);
+    const [selectedPeriode, setSelectedPeriode] = useState(null);
+    const [tahun, setTahun] = useState(new Date().getFullYear());
+
 
     const openModalTambah = () => {
       setSelectedData({
@@ -62,9 +63,9 @@ function Pengeluaran() {
     API.get("/pengeluaran/total")
         .then(res => {
           const fixedData = (res.data || []).map(item => ({
-            bulan: item.bulan, // ⬅️ tetap angka (PENTING)
-          namaBulan: namaBulan[item.bulan], 
-            tahun: item.tahun, // ⬅️ TAMBAH DI SINI
+            bulan: item.bulan, 
+            namaBulan: namaBulan[item.bulan], 
+            tahun: item.tahun,
             pemasukan: Number(item.pemasukan),
             pengeluaran: Number(item.pengeluaran),
             saldo: Number(item.saldo),
@@ -76,9 +77,9 @@ function Pengeluaran() {
         .catch(err => console.log(err));
     };
 
-        useEffect(() => {
-      fetchData();
-    }, []);
+useEffect(() => {
+  fetchData();
+}, []);
 
     const handleCreate = () => {
       API.post("tambah/pengeluaran", {

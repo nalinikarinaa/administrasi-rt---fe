@@ -2,6 +2,21 @@ import { useEffect, useState } from "react";
 import API from "../services/api";
 import Swal from "sweetalert2";
 
+const namaBulan = [
+      "", 
+      "Januari",
+      "Februari",
+      "Maret",
+      "April",
+      "Mei",
+      "Juni",
+      "Juli",
+      "Agustus",
+      "September",
+      "Oktober",
+      "November",
+      "Desember"
+    ];
 function Pembayaran() {
     console.log("DASHBOARD TERLOAD");
     const [data, setData] = useState([]);
@@ -13,7 +28,7 @@ function Pembayaran() {
     const [penghuni, setPenghuni] = useState([]);
     const [selectedPeriode, setSelectedPeriode] = useState(null);
     const [tahun, setTahun] = useState(new Date().getFullYear());
-
+  
     const openModalTambah = () => {
       setSelectedData({
         nomor_rumah: "",
@@ -49,8 +64,9 @@ function Pembayaran() {
     API.get("/pengeluaran/total")
         .then(res => {
           const fixedData = (res.data || []).map(item => ({
-            bulan: item.bulan,
-            tahun: item.tahun, // ⬅️ TAMBAH DI SINI
+            bulan: Number(item.bulan),
+            namaBulan: namaBulan[Number(item.bulan)],
+            tahun: item.tahun, 
             pemasukan: Number(item.pemasukan),
             pengeluaran: Number(item.pengeluaran),
             saldo: Number(item.saldo),
@@ -122,7 +138,8 @@ function Pembayaran() {
       API.get(`/pengeluaran/total?tahun=${year}`)
         .then(res => {
           const fixedData = (res.data || []).map(item => ({
-            bulan: item.bulan,
+            bulan: Number(item.bulan),
+            namaBulan: namaBulan[Number(item.bulan)],   
             tahun: item.tahun,
             pemasukan: Number(item.pemasukan),
             pengeluaran: Number(item.pengeluaran),
@@ -150,7 +167,7 @@ function Pembayaran() {
             }}
             className="border p-2 rounded-md ml-2 "
           >
-            {[2026, 2025, 2024, 2023].map((t) => (
+            {[2027, 2026, 2025, 2024, 2023].map((t) => (
               <option key={t} value={t}>
                 {t}
               </option>
@@ -181,7 +198,7 @@ function Pembayaran() {
         <tbody>
           {data.map((item, index) => (
             <tr key={index} className="text-center hover:bg-gray-50">
-              <td className="p-1 border border-gray-300">{item.bulan}</td>
+              <td className="p-1 border border-gray-300">{item.namaBulan  }</td>
               <td className="p-1 border border-gray-300">{item.pemasukan}</td>
               <td className="p-1 border border-gray-300">{item.pengeluaran}</td>
               <td className="p-1 border border-gray-300">Rp {Number(item.saldo).toLocaleString("id-ID")}</td>
@@ -352,7 +369,7 @@ function Pembayaran() {
         <div className="bg-white p-4 rounded-lg w-[600px]">
 
           <h2 className="text-lg font-bold mb-3">
-            Detail Pembayaran - Bulan {selectedPeriode?.bulan}
+            Detail Pembayaran - Bulan {selectedPeriode?.namaBulan} {selectedPeriode?.tahun}
           </h2>
 
           <table className="w-full border">
@@ -375,7 +392,9 @@ function Pembayaran() {
                   <td className="border p-1">
                     Rp {Number(d.total).toLocaleString("id-ID")}
                   </td>
-                  <td className="border p-1">{d.status}</td>
+                  <td className="border p-1"><span className={d.status === "lunas" ? "text-green-600" : "text-red-500"}>
+                  {d.status}
+                </span></td>
                 </tr>
               ))}
             </tbody>
