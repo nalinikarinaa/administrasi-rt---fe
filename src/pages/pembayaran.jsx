@@ -42,22 +42,26 @@ function Pembayaran() {
         setShowModalDetail(false);
       };
 
+
+//DETAIL
     const openDetail = (item) => {
       setSelectedPeriode(item);
 
       API.get(`/pembayaran/detail?bulan=${item.bulan}&tahun=${item.tahun}`)
         .then((res) => {
-          console.log("DETAIL RES:", res.data); // debug
+          console.log("DETAIL RES:", res.data); 
 
-          setDetailData(res.data.data || []); // ⬅️ FIX
+          setDetailData(res.data.data || []); 
           setShowModalDetail(true);
         })
         .catch((err) => {
           console.log(err);
-          setDetailData([]); // ⬅️ safety
+          setDetailData([]); 
         });
     };
 
+
+//TOTAAL PENGELUARAN
       const fetchData = () => {
       console.log("API HIT:", "/pengeluaran/total");
 
@@ -82,6 +86,7 @@ function Pembayaran() {
       fetchData();
     }, []);
 
+//TAMBAH PEMBAYARAN    
     const handleCreate = () => {
       API.post("/pembayaran", {
         rumah_id: selectedData?.rumah_id,
@@ -103,7 +108,7 @@ function Pembayaran() {
           closeModal();
           fetchData();
 
-          // RESET FORM (ini penting)
+          // RESET FORM 
           setSelectedData({
             rumah_id: "",
             penghuni_id: "",
@@ -124,6 +129,7 @@ function Pembayaran() {
         });
     };  
 
+//FETCH RUMAH SM PENGHUNI    
     useEffect(() => {
       API.get("/rumah")
         .then(res => setRumah(res.data))
@@ -134,6 +140,7 @@ function Pembayaran() {
         .catch(err => console.log(err));
     }, []);
 
+//TAMPILIN DATA BERDASAR YEAR    
     const getDataByYear = (year) => {
       API.get(`/pengeluaran/total?tahun=${year}`)
         .then(res => {
@@ -153,7 +160,7 @@ function Pembayaran() {
       return (
         <div className="p-6">
           <h1 className="text-2xl font-bold mb-4">
-            Dashboard Keuangan RT
+            Data Pembayaran
           </h1>
 
     <div className="flex justify-end mr-10">
@@ -205,7 +212,7 @@ function Pembayaran() {
               <td className="p-1 border border-gray-300"> 
                 <button
                       onClick={() => openDetail(item)}
-                    className="bg-green-600 hover:bg-gray-500 text-white px-3 py-1 rounded">
+                    className="bg-yellow-400 hover:bg-gray-500 text-white px-3 py-1 rounded">
                     Detail
                 </button>
               </td>

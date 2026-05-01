@@ -36,6 +36,7 @@ function Rumah() {
     fetchData();
   }, []);
 
+  //EDIT
   const handleUpdate = () => {
     API.put(`/rumah/${selectedData.id}`, {
       status: selectedData.status,
@@ -61,6 +62,7 @@ function Rumah() {
     });
   };
 
+  //HAPUS
   const handleDelete = (id) => {
   Swal.fire({
     title: "Yakin?",
@@ -95,6 +97,7 @@ function Rumah() {
   });
 };
   
+//TAMBAH RUMAHHHHH
 const handleCreate = () => {
   API.post("/rumah", {
     nomor_rumah: selectedData.nomor_rumah,
@@ -125,7 +128,7 @@ const handleCreate = () => {
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold">
-         Rumah
+         Data Rumah
       </h1>
 
       <p>Total data: {data.length}</p>

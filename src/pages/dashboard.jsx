@@ -38,7 +38,7 @@ useEffect(() => {
         saldo: Number(item.saldo),             
       }));
 
-      console.log("FIXED DATA:", fixedData); // debug
+      console.log("FIXED DATA:", fixedData); 
 
       setData(fixedData);
     })

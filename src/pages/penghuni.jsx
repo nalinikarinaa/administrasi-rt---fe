@@ -48,6 +48,7 @@ function Penghuni() {
     setShowModalTambah(false);
   };
 
+ //TAMPLIN PENGHUNI 
   const fetchData = () => {
     API.get("/penghuni")
       .then(res => {
@@ -64,7 +65,7 @@ function Penghuni() {
   const handleUpdate = () => {
   const file = selectedData.ktp_photo;
 
-  // 🔴 VALIDASI WAJIB FOTO
+  // VALIDASI  FOTO
   if (!file) {
     Swal.fire({
       title: "Error!",
@@ -74,7 +75,7 @@ function Penghuni() {
     return;
   }
 
-  // 🔴 VALIDASI FORMAT
+  // VALIDASI FORMAT
   if (file instanceof File) {
     if (file.type !== "image/jpeg") {
       Swal.fire({
@@ -86,7 +87,7 @@ function Penghuni() {
     }
   }
 
-  // 🔥 FORM DATA
+  // FORM DATA
   const formData = new FormData();
 
   formData.append("name", selectedData.name);
@@ -100,7 +101,7 @@ function Penghuni() {
     formData.append("ktp_photo", file);
   }
 
-  // 🔥 HIT API (Laravel PUT via POST + _method)
+  //EDIT PENGHUNI
   API.post(`/edit/penghuni/${selectedData.id}?_method=PUT`, formData)
     .then(() => {
       Swal.fire({
@@ -124,6 +125,7 @@ function Penghuni() {
     });
 };
 
+//TAMBAH [ENGHUNI]
   const handleCreate = () => {
   const formData = new FormData();
 
@@ -138,7 +140,7 @@ function Penghuni() {
     });
     return;
   }
-    // cek type (MIME)
+    // cek type 
     if (file.type !== "image/jpeg") {
       Swal.fire({
         title: "Error!",
@@ -183,6 +185,7 @@ function Penghuni() {
         .catch(err => console.log(err));
     }, []);
 
+//DELETE    
 const handleDelete = (id) => {
   Swal.fire({
     title: "Yakin?",
@@ -217,6 +220,7 @@ const handleDelete = (id) => {
   });
 };
 
+//HISTORY PEMBAYARAN
 const fetchHistoryPembayaran = (id) => {
   API.get(`/penghuni/${id}/pembayaran`)
     .then(res => {

@@ -41,6 +41,7 @@ function Pengeluaran() {
         setShowModalDetail(false);
       };
 
+//DETAIL BERSADAR BULAN      
     const openDetail = (item) => {
       setSelectedPeriode(item);
 
@@ -57,6 +58,7 @@ function Pengeluaran() {
         });
     };
 
+//AMBIL TOTAL PENGELUARAN    
       const fetchData = () => {
       console.log("API HIT:", "/pengeluaran/total");
 
@@ -81,6 +83,7 @@ useEffect(() => {
   fetchData();
 }, []);
 
+//TAMBAH PENGELUARAN
     const handleCreate = () => {
       API.post("tambah/pengeluaran", {
         date: selectedData?.date,
@@ -100,7 +103,7 @@ useEffect(() => {
           closeModal();
           fetchData();
 
-          // RESET FORM (ini penting)
+          // RESET FORM 
           setSelectedData({
             date: "",
             judul: "",
@@ -119,6 +122,7 @@ useEffect(() => {
         });
     };  
 
+//AMBIL DATA BY YEAR    
     const getDataByYear = (year) => {
       API.get(`/pengeluaran/total?tahun=${year}`)
         .then(res => {
@@ -138,7 +142,7 @@ useEffect(() => {
  return (
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-4">
-            Dashboard Keuangan RT
+            Data Pengeluaran
       </h1>
 
     <div className="flex justify-end mr-10">
@@ -186,7 +190,7 @@ useEffect(() => {
               <td className="p-1 border border-gray-300"> 
                 <button
                       onClick={() => openDetail(item)}
-                    className="bg-green-600 hover:bg-gray-500 text-white px-3 py-1 rounded">
+                    className="bg-yellow-400 hover:bg-gray-500 text-white px-3 py-1 rounded">
                     Detail
                 </button>
               </td>
